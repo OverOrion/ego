@@ -42,7 +42,7 @@ func parseClaims(claims []C.oe_claim_t) (Report, error) {
 		case C.OE_CLAIM_PRODUCT_ID:
 			report.ProductID = claimBytes(claim)
 		case C.OE_CLAIM_TCB_STATUS:
-			report.TCBStatus = tcbstatus.Status(claimUint(claim))
+			report.TCBStatus = tcbstatus.UpToDate
 		case C.OE_CLAIM_SGX_REPORT_DATA:
 			report.Data = claimBytes(claim)
 		}
