@@ -23,7 +23,7 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 		return internal.Report{}, attestation.ErrEmptyReport
 	}
 
-	res := C.oe_verifier_initialize()
+	C.oe_verifier_initialize()
 
 	var claims *C.oe_claim_t
 	var claimsLength C.size_t
