@@ -1,4 +1,4 @@
-module github.com/edgelesssys/ego
+module github.com/OverOrion/ego
 
 go 1.17
 
