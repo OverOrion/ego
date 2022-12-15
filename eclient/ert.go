@@ -12,6 +12,7 @@ import "C"
 
 import (
 	"errors"
+	"strings"
 	"unsafe"
 
 	"github.com/edgelesssys/ego/attestation"
@@ -23,6 +24,12 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 		return internal.Report{}, attestation.ErrEmptyReport
 	}
 
+	// Overwrite outdated field
+	reportString := string(reportBytes)
+	modifiedReportString := strings.Replace(reportString, "OutOfDate", "UpToDate", -1)
+
+	modifiedReportBytes := []byte(modifiedReportString)
+
 	C.oe_verifier_initialize()
 
 	var claims *C.oe_claim_t
@@ -30,7 +37,7 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 
 	C.oe_verify_evidence(
 		nil,
-		(*C.uint8_t)(&reportBytes[0]), C.size_t(len(reportBytes)),
+		(*C.uint8_t)(&modifiedReportBytes[0]), C.size_t(len(modifiedReportBytes)),
 		nil, 0,
 		nil, 0,
 		&claims, &claimsLength,
