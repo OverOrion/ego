@@ -12,8 +12,6 @@ import "C"
 
 import (
 	"errors"
-	"fmt"
-	"strings"
 	"unsafe"
 
 	"github.com/edgelesssys/ego/attestation"
@@ -24,15 +22,6 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 	if len(reportBytes) <= 0 {
 		return internal.Report{}, attestation.ErrEmptyReport
 	}
-
-	// Overwrite outdated field
-	reportString := string(reportBytes)
-	fmt.Printf("eclient: verifyRemoteReport:: reportString: %s", reportString)
-
-	modifiedReportString := strings.Replace(reportString, "OutOfDate", "UpToDate", -1)
-	fmt.Printf("eclient: verifyRemoteReport:: modifiedReportString: %s", modifiedReportString)
-
-	modifiedReportBytes := []byte(modifiedReportString)
 
 	C.oe_verifier_initialize()
 
