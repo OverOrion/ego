@@ -30,7 +30,7 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 
 	C.oe_verify_evidence(
 		nil,
-		(*C.uint8_t)(&modifiedReportBytes[0]), C.size_t(len(modifiedReportBytes)),
+		(*C.uint8_t)(&reportBytes[0]), C.size_t(len(reportBytes)),
 		nil, 0,
 		nil, 0,
 		&claims, &claimsLength,
