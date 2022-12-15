@@ -12,6 +12,7 @@ import "C"
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 	"unsafe"
 
@@ -26,7 +27,10 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 
 	// Overwrite outdated field
 	reportString := string(reportBytes)
+	fmt.Println("eclient: verifyRemoteReport:: reportString: %s", reportString)
+
 	modifiedReportString := strings.Replace(reportString, "OutOfDate", "UpToDate", -1)
+	fmt.Println("eclient: verifyRemoteReport:: modifiedReportString: %s", modifiedReportString)
 
 	modifiedReportBytes := []byte(modifiedReportString)
 
