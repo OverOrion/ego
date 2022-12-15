@@ -28,7 +28,7 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 	var claims *C.oe_claim_t
 	var claimsLength C.size_t
 
-	res = C.oe_verify_evidence(
+	C.oe_verify_evidence(
 		nil,
 		(*C.uint8_t)(&reportBytes[0]), C.size_t(len(reportBytes)),
 		nil, 0,
