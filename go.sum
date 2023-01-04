@@ -1,7 +1,5 @@
 github.com/OverOrion/ego v1.1.1-0.20221215133934-dba1b1b0c429 h1:Z5FWlKJW03v5+W61avRxVDaFnnQdrdfixFdYA27Tpmc=
 github.com/OverOrion/ego v1.1.1-0.20221215133934-dba1b1b0c429/go.mod h1:ex4cDvgi0l6wxDm5xBaQzJqi547FMPDsxv+3ERLJfLI=
-github.com/OverOrion/marblerun v0.6.2-0.20230104095344-b6a5c7bb2bb4 h1:N3fP30p/0w0UDsopDjROhrUtZ1zvhM4cQSWAI0ypOPg=
-github.com/OverOrion/marblerun v0.6.2-0.20230104095344-b6a5c7bb2bb4/go.mod h1:tLGgVF0AbeJLg2lXcm8+QjinU7sabCXkIkrCBL6hKak=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
