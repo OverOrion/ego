@@ -23,7 +23,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/edgelesssys/marblerun/coordinator/rpc"
+	"github.com/OverOrion/marblerun/coordinator/rpc"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"

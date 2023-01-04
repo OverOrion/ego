@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/OverOrion/marblerun v0.6.2-0.20230104095344-b6a5c7bb2bb4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/crypto v0.4.0 // indirect
