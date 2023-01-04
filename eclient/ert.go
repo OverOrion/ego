@@ -23,12 +23,15 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 		return internal.Report{}, attestation.ErrEmptyReport
 	}
 
-	C.oe_verifier_initialize()
+	res := C.oe_verifier_initialize()
+	if res != C.OE_OK {
+		return internal.Report{}, oeError(res)
+	}
 
 	var claims *C.oe_claim_t
 	var claimsLength C.size_t
 
-	C.oe_verify_evidence(
+	res = C.oe_verify_evidence(
 		nil,
 		(*C.uint8_t)(&reportBytes[0]), C.size_t(len(reportBytes)),
 		nil, 0,
@@ -36,13 +39,20 @@ func verifyRemoteReport(reportBytes []byte) (internal.Report, error) {
 		&claims, &claimsLength,
 	)
 
+	var verifyErr error
+	if res == C.OE_TCB_LEVEL_INVALID {
+		verifyErr = attestation.ErrTCBLevelInvalid
+	} else if res != C.OE_OK {
+		return internal.Report{}, oeError(res)
+	}
+
 	defer C.oe_free_claims(claims, claimsLength)
 
 	report, err := internal.ParseClaims(uintptr(unsafe.Pointer(claims)), uintptr(claimsLength))
 	if err != nil {
 		return internal.Report{}, err
 	}
-	return report, nil
+	return report, verifyErr
 }
 
 func oeError(res C.oe_result_t) error {

@@ -83,7 +83,7 @@ func VerifyRemoteReport(reportBytes []byte) (attestation.Report, error) {
 
 	var claims, claimsLength uintptr
 
-	syscall.Syscall6(
+	res, _, errno := syscall.Syscall6(
 		sysVerifyEvidence,
 		uintptr(unsafe.Pointer(&reportBytes[0])),
 		uintptr(len(reportBytes)),
@@ -91,6 +91,13 @@ func VerifyRemoteReport(reportBytes []byte) (attestation.Report, error) {
 		uintptr(unsafe.Pointer(&claimsLength)),
 		0, 0,
 	)
+	var verifyErr error
+	if err := oeError(errno, res); err != nil {
+		if err.Error() != "OE_TCB_LEVEL_INVALID" {
+			return attestation.Report{}, err
+		}
+		verifyErr = attestation.ErrTCBLevelInvalid
+	}
 
 	defer syscall.Syscall(sysFreeClaims, claims, claimsLength, 0)
 
@@ -106,7 +113,7 @@ func VerifyRemoteReport(reportBytes []byte) (attestation.Report, error) {
 		SignerID:        report.SignerID,
 		ProductID:       report.ProductID,
 		TCBStatus:       report.TCBStatus,
-	}, nil
+	}, verifyErr
 }
 
 // GetLocalReport gets a report signed by the enclave platform for use in local attestation.
